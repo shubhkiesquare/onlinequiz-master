@@ -1,0 +1,39 @@
+{% extends 'quiz/adminbase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+<div class="container" >
+    <div class="row" >
+      
+            <div class="panel panel-primary" >
+                <div class="panel-heading">
+                    <h2 class="panel-title text-center" >Upload Questions</h2>
+                </div>
+                <div class="panel-body text-left" ;>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group" >
+                            <label for="id_course_id" >Course:</label>
+                            {{ form.course_id | add_class:'form-control' }}
+                        </div>
+                        <br>
+                
+                        <div class="form-group" >
+                          
+                            <label for="id_excel_file">Excel File:</label>
+                            {{ form.excel_file | add_class:'form-control' }}
+                     
+                        </div>
+                        <br> 
+                        <div class="form-group">
+                            <div class="col-md-offset-1 col-md-10 text-right">
+                            <button type="submit" class="btn btn-success btn-lg">Upload</button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

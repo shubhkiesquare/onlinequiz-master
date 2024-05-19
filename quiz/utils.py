@@ -22,7 +22,9 @@ def parse_excel_and_extract_questions(excel_file):
             'option3': row[3],
             'option4': row[4],
             'answer': row[5],
-            'marks':row[6]
+            'marks':row[6],
+            'hint1':row[7],
+            'hint2':row[8]
         }
         questions.append(question)
     

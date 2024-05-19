@@ -1,85 +1,95 @@
 {% extends 'student/studentbase.html' %}
 {% block content %}
-{%load static%}
+{% load static %}
 
 <head>
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
   <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
-
 </head>
 
-
 <div class="jumbotron my-4">
-
-  <form class="form" autocomplete="off" onsubmit="return saveAns()"  action="/student/calculate-marks" method="POST">
+  <form class="form" autocomplete="off" onsubmit="return saveAns()" action="/student/calculate-marks" method="POST">
     {% csrf_token %}
-    <h1 style="text-align: center;">{{course.course_name}}</h1>
-    {% for q in questions%}
-    <h3 class="text-info">{{ forloop.counter }}. {{q.question}}</h3><h4 style="text-align: right;">[Marks {{q.marks}}]</h4>
-    
-        <input type="hidden" name="csrfmiddlewaretoken" value="C24rUotmdHawVQJL3KrqiWxvti8UffOFYUc8TRbZtLt36AVLdP3jbkzUVe3beRAa">
-        
-        
-          <div class="form-check mx-4">
-            <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{q.option1}}" value="Option1">
-            <label class="form-check-label" for="option1">
-              {{q.option1}}
-            </label>
-          </div>
+    <h1 style="text-align: center;">{{ course.course_name }}</h1>
+    {% for q in questions %}
+    <h3 class="text-info">{{ forloop.counter }}. {{ q.question }}</h3><h4 style="text-align: right;">[Marks {{ q.marks }}]</h4>
+    <input type="hidden" name="csrfmiddlewaretoken" value="C24rUotmdHawVQJL3KrqiWxvti8UffOFYUc8TRbZtLt36AVLdP3jbkzUVe3beRAa">
+    <div class="form-check mx-4">
+      <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{ q.option1 }}" value="Option1">
+      <label class="form-check-label" for="{{ q.option1 }}">{{ q.option1 }}</label>
+    </div>
+    <div class="form-check mx-4">
+      <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{ q.option2 }}" value="Option2">
+      <label class="form-check-label" for="{{ q.option2 }}">{{ q.option2 }}</label>
+    </div>
+    <div class="form-check mx-4">
+      <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{ q.option3 }}" value="Option3">
+      <label class="form-check-label" for="{{ q.option3 }}">{{ q.option3 }}</label>
+    </div>
+    <div class="form-check mx-4">
+      <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{ q.option4 }}" value="Option4">
+      <label class="form-check-label" for="{{ q.option4 }}">{{ q.option4 }}</label>
+    </div>
+    <button type="button" class="btn btn-info btn-sm" onclick="displayHint('hint1_{{ forloop.counter }}','hint_used_1_{{ forloop.counter }}')">Hint 1</button>
+    <div id="hint1_{{ forloop.counter }}" style="display: none;">{{ q.hint1 }}</div>
+    <button type="button" class="btn btn-info btn-sm" onclick="displayHint('hint2_{{ forloop.counter }}','hint_used_2_{{ forloop.counter }}')">Hint 2</button>
+    <div id="hint2_{{ forloop.counter }}" style="display: none;">{{ q.hint2 }}</div>
+    {% endfor %}
+    <input class="btn btn-info btn-lg" type="submit" value="Submit">
+  </form>
+</div>
 
-        
-          <div class="form-check mx-4">
-            <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{q.option2}}" value="Option2">
-            <label class="form-check-label" for="option2">
-              {{q.option2}}
-            </label>
-          </div>
-
-        
-          <div class="form-check mx-4">
-            <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{q.option3}}" value="Option3">
-            <label class="form-check-label" for="option3">
-              {{q.option3}}
-            </label>
-          </div>
-
-        
-          <div class="form-check mx-4">
-            <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{q.option4}}" value="Option4">
-            <label class="form-check-label" for="option4">
-              {{q.option4}}
-            </label>
-          </div>
-
-        {% endfor %}
-        <input class="btn btn-info btn-lg"   type="submit" value="Submit">  
-    </form>
-  </div>
-
-<script> 
-    function saveAns(){  
-
-        var ele = document.getElementsByTagName('input'); 
-        for(i = 0; i < ele.length; i++) { 
-            if(ele[i].type="radio") { 
-                if(ele[i].checked){        
-                  setCookie(ele[i].name,ele[i].value,3)
-                }
-            } 
-        } 
-          
+<script>
+function saveAns() {
+  var ele = document.getElementsByTagName('input');
+  for (i = 0; i < ele.length; i++) {
+    if (ele[i].type === "radio") {
+      if (ele[i].checked) {
+        setCookie(ele[i].name, ele[i].value, 3);
+      }
     }
-    
-    function setCookie(cname, cvalue, exdays) {
+  }
+}
+
+function setCookie(cname, cvalue, exdays) {
   var d = new Date();
-  d.setTime(d.getTime() + (exdays*24*60*60*1000));
-  var expires = "expires="+ d.toUTCString();
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  var expires = "expires=" + d.toUTCString();
   document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
-</script> 
+function displayHint(hintId,hintUsedCookieName) {
+  var hint = document.getElementById(hintId);
+  if (hint.style.display === "none" || hint.style.display === "") {
+    hint.style.display = "block";
+    // Set a cookie indicating that the hint has been used
+    setCookie(hintUsedCookieName, true, 3);
+  } else {
+    hint.style.display = "none";
+  }
+}
+function deleteCookie(cname) {
+  document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+
+
+function startExam() {
+  clearAllCookies();
+  setCookie("course_id", {{ course.id }}, 3);
+}
+function clearAllCookies() {
+  var cookies = document.cookie.split(";");
+  for (var i = 0; i < cookies.length; i++) {
+    var cookie = cookies[i];
+    var eqPos = cookie.indexOf("=");
+    var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+    name = name.trim();
+    deleteCookie(name);
+  }
+} 
+window.onload = startExam;
+</script>
 
 <br><br><br><br><br><br>
 {% endblock content %}

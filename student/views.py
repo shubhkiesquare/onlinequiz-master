@@ -95,7 +95,10 @@ def calculate_marks_view(request):
                 total_marks = total_marks + questions[i].marks
                      # Check if hint 1 has been used for this question
                 hint1_used_cookie = request.COOKIES.get('hint_used_1_{}'.format(i+1))
+                hint2_used_cookie = request.COOKIES.get('hint_used_2_{}'.format(i+1))
                 if hint1_used_cookie:
+                    total_marks -= 1
+                if hint2_used_cookie:
                     total_marks -= 1
         student = models.Student.objects.get(user_id=request.user.id)
         result = QMODEL.Result()

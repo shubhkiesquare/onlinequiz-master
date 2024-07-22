@@ -1,19 +1,54 @@
-{%load static%}
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
+{% load static %}
+<html lang="en" class="h-full bg-gray-50">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logged Out - DHAI AKSHAR</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+
+<body class="h-full">
+  <div class="flex flex-col">
+    <!-- Navbar -->
     {% include "quiz/navbar.html" %}
-    <br><br><br><br><br>
-<img src="{% static "image/logout_img.png" %}"  style="width:800px; height:100px; padding-left:400px;">
 
-<br><br><br><br><br>
-<br><br><br><br><br>
-<br><br>
-{% include "quiz/footer.html" %}
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-md w-full space-y-8">
+        <div>
+          <h2 class="mt-[100px] text-center text-3xl font-extrabold text-gray-900">
+            You have been logged out
+          </h2>
+          <p class="mt-2 text-center text-sm text-gray-600">
+            Thank you for using DHAI AKSHAR
+          </p>
+        </div>
+        <div class="mt-8 space-y-6">
+          <div>
+            <a href="/"
+              class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              Return to Home Page
+            </a>
+          </div>
+          <div>
+            <a href="/adminlogin"
+              class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-600 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              Log in again
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
 
-  </body>
 </html>

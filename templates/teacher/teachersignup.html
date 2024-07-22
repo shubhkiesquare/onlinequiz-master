@@ -1,73 +1,91 @@
 <!DOCTYPE html>
 {% load widget_tweaks %}
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
+<html lang="en" class="h-full bg-gray-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Signup - DHAI AKSHAR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-
-        form{
-           margin: 50px; 
-          
+        body {
+            font-family: 'Inter', sans-serif;
         }
-
     </style>
-  </head>
-  <body>
+</head>
+<body class="h-full">
     {% include "quiz/navbar.html" %}
- 
 
+    <div class="flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <div class="sm:mx-auto sm:w-full sm:max-w-md">
+            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">TEACHER SIGNUP</h2>
+        </div>
 
-<br><br><br>
-<h3 style="text-align: center;color: red;">TEACHER SIGNUP</h3>
-<form method="POST" autocomplete="off" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="username">Username</label>
-        {% render_field userForm.username|attr:'required:true'  class="form-control" placeholder="username" %}
-      </div>
-      <div class="form-group col-md-6">
-        <label for="inputPassword4">Password</label>
-        {% render_field userForm.password|attr:'required:true'  class="form-control" placeholder="password" %}
-      </div>
+        <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+            <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+                <form class="space-y-6" method="POST" autocomplete="off" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
+                        <div>
+                            <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                            <div class="mt-1">
+                                {% render_field userForm.username|attr:'required:true' class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Username" %}
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                            <div class="mt-1">
+                                {% render_field userForm.password|attr:'required:true' class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Password" %}
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="first_name" class="block text-sm font-medium text-gray-700">First Name</label>
+                            <div class="mt-1">
+                                {% render_field userForm.first_name|attr:'required:true' class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="First Name" %}
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name</label>
+                            <div class="mt-1">
+                                {% render_field userForm.last_name|attr:'required:true' class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Last Name" %}
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="mobile" class="block text-sm font-medium text-gray-700">Mobile</label>
+                            <div class="mt-1">
+                                {% render_field teacherForm.mobile|attr:'required:true' class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Mobile" %}
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
+                            <div class="mt-1">
+                                {% render_field teacherForm.address|attr:'required:true' class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Address" %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="profile_pic" class="block text-sm font-medium text-gray-700">Profile Picture</label>
+                        <div class="mt-1">
+                            {% render_field teacherForm.profile_pic|attr:'required:true' class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %}
+                        </div>
+                    </div>
+
+                    <div>
+                        <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Sign Up
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
-    <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="first_name">First Name</label>
-          {% render_field userForm.first_name|attr:'required:true'  class="form-control" placeholder="First Name" %}
-        </div>
-        <div class="form-group col-md-6">
-          <label for="last_name">Last Name</label>
-          {% render_field userForm.last_name|attr:'required:true'  class="form-control" placeholder="Last Name" %}
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="mobile">Mobile</label>
-          {% render_field teacherForm.mobile|attr:'required:true'  class="form-control" placeholder="Mobile" %}
-        </div>
-        <div class="form-group col-md-6">
-          <label for="address">Address</label>
-          {% render_field teacherForm.address|attr:'required:true'  class="form-control" placeholder="Address" %}
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group col-md-12">
-          <label for="profile_pic">Profile Picture</label>
-          {% render_field teacherForm.profile_pic|attr:'required:true' class="form-control" placeholder="" %}
-        </div>
-        
-      </div>
-
-
-    <button type="submit" class="btn btn-primary">Sign Up</button>
-  </form>
-
-
-<br><br>
-{% include "quiz/footer.html" %}
-  </body>
+    {% include "quiz/footer.html" %}
+</body>
 </html>

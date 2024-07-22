@@ -1,205 +1,124 @@
-<!DOCTYPE html>
 {% load static %}
-<html lang="en" dir="ltr">
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
- 
-
-  <style media="screen">
-    a:link {
-      text-decoration: none;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: "Gill Sans", sans-serif;;
-    }
-
-    header {
-      position: fixed;
-      background: #22242A;
-      padding: 20px;
-      width: 100%;
-      z-index: 1;
-    }
-
-    .left_area h3 {
-      color: #fff;
-      margin: 0px;
-      text-transform: uppercase;
-      font-size: 22px;
-      font-weight: 900;
-    }
-
-    .left_area span {
-      color: #19B3D3;
-    }
-
-    .logout_btn {
-      padding: 5px;
-      background: #19B3D3;
-      text-decoration: none;
-      float: right;
-      margin-top: -30px;
-      margin-right: 40px;
-      border-radius: 2px;
-      font-size: 15px;
-      font-weight: 600;
-      color: #fff;
-      transition: 0.5s;
-
-    }
-
-    .logout_btn:hover {
-      background: #0B87A6;
-    }
-
-    .sidebar {
-      background: #2f323a;
-      margin-top: 70px;
-      padding-top: 30px;
-      position: fixed;
-      left: 0;
-      width: 250px;
-      height: 100%;
-      transition: 0.5s;
-      transition-property: left;
-    }
-
-    .sidebar .profile_image {
-      width: 100px;
-      height: 100px;
-      border-radius: 100px;
-      margin-bottom: 10px;
-    }
-
-    .sidebar h4 {
-      color: #ccc;
-      margin-top: 0;
-      
-    }
-
-    .sidebar a {
-      color: #fff;
-      display: block;
-      width: 100%;
-      line-height: 60px;
-      text-decoration: none;
-      padding-left: 40px;
-      box-sizing: border-box;
-      transition: 0.5s;
-
-    }
-
-    .sidebar a:hover {
-      background: #19B3D3;
-    }
-
-    .sidebar i {
-      padding-right: 10px;
-    }
-
-    label #sidebar_btn {
-      z-index: 1;
-      color: #fff;
-      position: fixed;
-      cursor: pointer;
-      left: 300px;
-      font-size: 20px;
-      margin: 5px 0;
-      transition: 0.5s;
-      transition-property: color;
-    }
-
-    label #sidebar_btn:hover {
-      color: #19B3D3;
-    }
-
-    #check:checked~.sidebar {
-      left: -190px;
-    }
-
-    #check:checked~.sidebar a span {
-      display: none;
-    }
-
-    #check:checked~.sidebar a {
-      font-size: 20px;
-      margin-left: 170px;
-      width: 80px;
-    }
-
-    .content {
-      margin-left: 250px;
-      background: url(background.png) no-repeat;
-      background-position: center;
-      background-size: cover;
-      height: 100vh;
-      transition: 0.5s;
-    }
-
-    #check:checked~.content {
-      margin-left: 60px;
-    }
-
-    #check {
-      display: none;
-    }
-  </style>
-
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Online Quiz - Student Dashboard{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#1E40AF',
+                        sidebar: '#2C3E50',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    {% block extra_css %}{% endblock %}
 </head>
+<body class="bg-gray-100 font-sans">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-sidebar text-white transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
+            <div class="flex items-center justify-between p-4 border-b border-gray-700">
+                <span class="text-2xl font-semibold">DHAI AKSHAR</span>
+                <button id="close-sidebar" class="text-white md:hidden">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="p-4">
+                <div class="text-center mb-6">
+                    <img src="{% static 'image/student.png' %}" alt="Profile" class="w-24 h-24 rounded-full mx-auto mb-3">
+                    <h4 class="text-lg font-semibold">{{request.user.first_name}}</h4>
+                    <p class="text-sm text-gray-400">Student</p>
+                </div>
+                <nav>
+                    <a href="{% url 'student-dashboard' %}" class="flex items-center py-2 px-4 text-gray-300 hover:bg-primary hover:text-white rounded transition duration-200">
+                        <i class="fas fa-tachometer-alt mr-3"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="{% url 'student-courses' %}" class="flex items-center py-2 px-4 text-gray-300 hover:bg-primary hover:text-white rounded transition duration-200">
+                        <i class="fas fa-book mr-3"></i>
+                        <span>Courses</span>
+                    </a>
+                    <a href="{% url 'student-exam' %}" class="flex items-center py-2 px-4 text-gray-300 hover:bg-primary hover:text-white rounded transition duration-200">
+                        <i class="fas fa-edit mr-3"></i>
+                        <span>Exams</span>
+                    </a>
+                    <a href="{% url 'student-results' %}" class="flex items-center py-2 px-4 text-gray-300 hover:bg-primary hover:text-white rounded transition duration-200">
+                        <i class="fas fa-chart-bar mr-3"></i>
+                        <span>Results</span>
+                    </a>
+                </nav>
+            </div>
+        </aside>
 
-<body>
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Header -->
+            <header class="bg-white shadow-md">
+                <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+                    <div class="flex items-center">
+                        <button id="sidebar-toggle" class="text-gray-500 focus:outline-none focus:text-primary md:hidden">
+                            <i class="fas fa-bars text-xl"></i>
+                        </button>
+                        <h1 class="ml-4 text-2xl font-semibold text-gray-800 md:hidden">DHAI AKSHAR</h1>
+                    </div>
+                    <a href="{% url 'studentlogout' %}" class="bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded transition duration-200">
+                        <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                    </a>
+                </div>
+            </header>
 
-  <input type="checkbox" id="check">
-  <!--header area start-->
-  <header>
-    <label for="check">
-      <i style="left: 200px;margin-top: 17px;"class="fas fa-bars" id="sidebar_btn"></i>
-    </label>
-    <div class="left_area">
-      <h3>Online Quiz</h3>
+            <!-- Page Content -->
+            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                    {% block content %}
+                    {% endblock content %}
+                </div>
+            </main>
+
+            <!-- Footer -->
+            <footer class="bg-white shadow-md mt-auto">
+                <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+                    {% include "quiz/footer.html" %}
+                </div>
+            </footer>
+        </div>
     </div>
-    <div class="right_area">
-      <a href="/logout" class="logout_btn">Logout</a>
-    </div>
-  </header>
-  <!--header area end-->
-  <!--sidebar start-->
-  <div class="sidebar">
-    <center>
 
-      <img src="{% static "image/student.png" %}" class="profile_image" alt="">
-      <h4>{{request.user.first_name}}</h4>
-      <h6 style="color: rgb(255, 255, 255);">( Student )</h6>
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const closeSidebar = document.getElementById('close-sidebar');
 
-    </center>
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+        });
 
-    <a href="/student/student-dashboard"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
-    <a href="/student/student-exam"><i class="fas fa-book"></i><span>Exam</span></a>
-    <a href="/student/student-marks"><i class="fas fa-sort-numeric-up"></i><span>Marks</span></a>
-  </div>
-  <!--sidebar end-->
+        closeSidebar.addEventListener('click', () => {
+            sidebar.classList.add('-translate-x-full');
+        });
 
-
-  <!--content start-->
-  <div class="content">
-    <br><br><br><br><br>
-    {% block content %}
-
-    {% endblock content %}
-
-
-    <br><br><br>
-    {% include "quiz/footer.html" %}
-  </div>
-  <!--content end-->
+        // Close sidebar when clicking outside of it
+        document.addEventListener('click', (event) => {
+            const isClickInsideSidebar = sidebar.contains(event.target);
+            const isClickOnToggle = sidebarToggle.contains(event.target);
+            if (!isClickInsideSidebar && !isClickOnToggle && !sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.add('-translate-x-full');
+            }
+        });
+    </script>
+    {% block extra_js %}{% endblock %}
 </body>
-
 </html>

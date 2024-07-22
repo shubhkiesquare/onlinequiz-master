@@ -18,17 +18,30 @@ class CourseForm(forms.ModelForm):
 
 class QuestionForm(forms.ModelForm):
     
-    #this will show dropdown __str__ method course model is shown on html so override it
-    #to_field_name this will fetch corresponding value  user_id present in course model and return it
-    courseID=forms.ModelChoiceField(queryset=models.Course.objects.all(),empty_label="Course Name", to_field_name="id")
+    # Dropdown for course selection
+    courseID = forms.ModelChoiceField(
+        queryset=models.Course.objects.all(),
+        empty_label="Course Name", 
+        to_field_name="id"
+    )
   
     class Meta:
-        model=models.Question
-        fields=['marks','question','option1','option2','option3','option4','answer']
+        model = models.Question
+        fields = ['marks', 'question', 'option1', 'option2', 'option3', 'option4', 'answer', 'hint1', 'hint2', 'solution_video_url']
         widgets = {
-            'question': forms.Textarea(attrs={'rows': 3, 'cols': 50})
+            'question': forms.Textarea(attrs={'rows': 3, 'cols': 50}),
+            'hint1': forms.Textarea(attrs={'rows': 2, 'cols': 50}),
+            'hint2': forms.Textarea(attrs={'rows': 2, 'cols': 50}),
         }
 
+    def __init__(self, *args, **kwargs):
+        super(QuestionForm, self).__init__(*args, **kwargs)
+        self.fields['hint1'].required = False
+        self.fields['hint2'].required = False
+        self.fields['solution_video_url'].required = False
+        self.fields['solution_video_url'].widget.attrs.update({
+            'placeholder': 'https://player.vimeo.com/video/VIDEO_ID'
+        })
 
 class UploadQuestionForm(forms.Form):
     course_id = forms.ModelChoiceField(queryset=Course.objects.all(), empty_label='Select Course')

@@ -1,69 +1,69 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="en">
-
+<html lang="en" class="h-full">
 <head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-  <style type="text/css">
-    .bs-example {
-      margin: 0px;
-
-    }
-    .bg-dark {
-    background-color: #212529!important;
-}
-    .navbar-brand {
-      font-size: 20px;
-      font-family: sans-serif;
-
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DHAI AKSHAR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
 </head>
-
-<body>
-
-
-
-  <div class="bs-example">
-    <nav class="navbar navbar-expand-md  navbar-dark fixed-top" style="background-color:#e0a084;">
-    <a style="color: #ffffff;text-decoration: none; " href="/"><font face = "Brush Script MT " size ="6" style="color: black;">DHAI AKSHAR</font><br /></a>  
-      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-        <div class="navbar-nav">
-          <a style="
-          padding-left: 30px;
-      " href="/" class="nav-item nav-link active" style="color: black;">Home</a>
-
-          <a href="/teacher/teacherclick" class="nav-item nav-link" style="color: black;">Teacher</a>
-          <a href="/student/studentclick" class="nav-item nav-link" style="color: black;">Student</a>
-          <a href="/adminclick" class="nav-item nav-link" style="color: black;">Admin</a>
-
-
+<body class="h-full">
+    <nav class="bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="/" class="text-2xl font-semibold text-gray-900">DHAI AKSHAR</a>
+                </div>
+                <div class="hidden md:flex md:items-center md:space-x-4">
+                    <a href="/" class="text-gray-700 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                    <a href="/teacher/teacherclick" class="text-gray-700 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Teacher</a>
+                    <a href="/student/studentclick" class="text-gray-700 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Student</a>
+                    <a href="/adminclick" class="text-gray-700 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Admin</a>
+                    <a href="/signup" class="ml-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Sign up
+                    </a>
+                </div>
+                <div class="-mr-2 flex items-center md:hidden">
+                    <button type="button" class="bg-white inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
         </div>
 
-        <div class="navbar-nav">
-          <a href="/aboutus" class="nav-item nav-link" style="color: black;">About Us</a>
-          <a href="/contactus" class="nav-item nav-link" style="color: black;">Contact Us</a>
-          
+        <div class="hidden md:hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="/" class="block text-gray-700 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="/teacher/teacherclick" class="block text-gray-700 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded-md text-base font-medium">Teacher</a>
+                <a href="/student/studentclick" class="block text-gray-700 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded-md text-base font-medium">Student</a>
+                <a href="/adminclick" class="block text-gray-700 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded-md text-base font-medium">Admin</a>
+                <a href="/signup" class="block w-full text-center px-5 py-3 font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-md">Sign up</a>
+            </div>
         </div>
-
-
-
-
-      </div>
     </nav>
-  </div>
 
+    <script>
+        // Toggle for mobile menu
+        const btn = document.querySelector("button[aria-controls='mobile-menu']");
+        const menu = document.getElementById("mobile-menu");
 
+        btn.addEventListener("click", () => {
+            const expanded = btn.getAttribute("aria-expanded") === "true" || false;
+            btn.setAttribute("aria-expanded", !expanded);
+            menu.classList.toggle("hidden");
+        });
+    </script>
 </body>
-
 </html>

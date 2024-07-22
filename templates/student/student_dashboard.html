@@ -1,106 +1,236 @@
-{% extends 'student/studentbase.html' %}
-{% load widget_tweaks %}
-{% block content %}
-
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" class="h-full bg-gray-100">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <style type="text/css">
-      a:link {
-        text-decoration: none;
-      }
-  
-      .order-card {
-        color: rgb(255, 255, 255);
-      }
-  
-      .bg-c-blue {
-        background: #04868f;
-      }
-  
-      .bg-c-green {
-        background:#4C51BF;
-      }
-  
-      .bg-c-yellow {
-        background: #F56565;
-      }
-  
-      .bg-c-pink {
-        background: #663a30;
-      }
-  
-  
-      .card {
-        
-        -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
-        box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
-        border: 1px solid black;
-        margin-bottom: 30px;
-        -webkit-transition: all 0.3s ease-in-out;
-        transition: all 0.3s ease-in-out;
-      }
-  
-      .card .card-block {
-        padding: 25px;
-      }
-  
-      .order-card i {
-        font-size: 26px;
-      }
-  
-      .f-left {
-        float: left;
-      }
-  
-      .f-right {
-        float: right;
-      }
-      header {
-      left: 0px;
-      right: 0px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - DHAI AKSHAR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
     </style>
-  </head>
-<br><br>
+</head>
 
-  <div class="container">
-    <div class="row">
-      
-  
-      <div class="col-md-4 col-xl-6">
-        <div class="card bg-c-yellow order-card">
-          <div class="card-block">
-            <h6 class="m-b-20">Total Exams Available</h6>
-           <h2 class="text-right"><i class="fas fa-book f-left"></i><span>{{total_course}}</span></h2>
-            
-          </div>
-        </div>
-      </div>
-  
-      <div class="col-md-4 col-xl-6">
-        <div class="card bg-c-pink order-card">
-          <div class="card-block">
-            <h6 class="m-b-20">Total Questions</h6>
-            <h2 class="text-right"><i class="fas fa-question-circle f-left"></i><span>{{total_question}}</span></h2>
-            
-          </div>
-        </div>
-      </div>
+<body class="h-full">
+    <div class="min-h-full">
+        <!-- Navbar -->
+        <nav class="bg-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <span class="text-white text-lg font-semibold">DHAI AKSHAR</span>
+                        </div>
+                        <div class="hidden md:block">
+                            <div class="ml-10 flex items-baseline space-x-4">
+                                <a href="{% url 'student-dashboard' %}"
+                                    class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
+                                <a href="{% url 'student-courses' %}"
+                                    class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Courses</a>
+                                <a href="{% url 'student-exam' %}"
+                                    class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Exams</a>
+                                <a href="{% url 'student-results' %}"
+                                    class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Results</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-4 flex items-center md:ml-6">
+                            <a href="{% url 'studentlogout' %}"
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Logout</a>
+                        </div>
+                    </div>
+                    <div class="-mr-2 flex md:hidden">
+                        <button type="button"
+                            class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                            aria-controls="mobile-menu" aria-expanded="false">
+                            <span class="sr-only">Open main menu</span>
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile menu, show/hide based on menu state. -->
+            <div class="md:hidden hidden" id="mobile-menu">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <a href="{% url 'student-dashboard' %}"
+                        class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">Dashboard</a>
+                    <a href="{% url 'student-courses' %}"
+                        class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Courses</a>
+                    <a href="{% url 'student-exam' %}"
+                        class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Exams</a>
+                    <a href="{% url 'student-results' %}"
+                        class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Results</a>
+                    <a href="{% url 'studentlogout' %}"
+                        class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Logout</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="py-10">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <!-- Student Profile -->
+                <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-6">
+                    <div class="px-4 py-5 sm:px-6">
+                        <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+                            Student Profile
+                        </h2>
+                    </div>
+                    <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                {% if student.profile_pic %}
+                                    <img class="h-24 w-24 rounded-full object-cover" src="{{ student.profile_pic.url }}" alt="Profile picture">
+                                {% else %}
+                                    <div class="h-24 w-24 rounded-full bg-gray-300 flex items-center justify-center">
+                                        <span class="text-3xl text-gray-600">{{ student.user.first_name|first|upper }}</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="ml-6">
+                                <h3 class="text-lg font-medium leading-6 text-gray-900">{{ student.get_name }}</h3>
+                                <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ student.user.email }}</p>
+                                <dl class="mt-2 grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2">
+                                    <div class="sm:col-span-1">
+                                        <dt class="text-sm font-medium text-gray-500">Address</dt>
+                                        <dd class="mt-1 text-sm text-gray-900">{{ student.address }}</dd>
+                                    </div>
+                                    <div class="sm:col-span-1">
+                                        <dt class="text-sm font-medium text-gray-500">Mobile</dt>
+                                        <dd class="mt-1 text-sm text-gray-900">{{ student.mobile }}</dd>
+                                    </div>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Count Boxes -->
+                <div class="mt-8">
+                    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                        <!-- Available Exams Count -->
+                        <div class="bg-white overflow-hidden shadow rounded-lg">
+                            <div class="p-5">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
+                                        <i class="fas fa-book-open text-white text-2xl"></i>
+                                    </div>
+                                    <div class="ml-5 w-0 flex-1">
+                                        <dl>
+                                            <dt class="text-sm font-medium text-gray-500 truncate">Available Exams</dt>
+                                            <dd class="text-3xl font-semibold text-gray-900">{{ available_exams_count }}</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Total Attempts Count -->
+                        <div class="bg-white overflow-hidden shadow rounded-lg">
+                            <div class="p-5">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 bg-green-500 rounded-md p-3">
+                                        <i class="fas fa-clipboard-check text-white text-2xl"></i>
+                                    </div>
+                                    <div class="ml-5 w-0 flex-1">
+                                        <dl>
+                                            <dt class="text-sm font-medium text-gray-500 truncate">Total Attempts</dt>
+                                            <dd class="text-3xl font-semibold text-gray-900">{{ total_attempts }}</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Average Score -->
+                        <div class="bg-white overflow-hidden shadow rounded-lg">
+                            <div class="p-5">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 bg-yellow-500 rounded-md p-3">
+                                        <i class="fas fa-star text-white text-2xl"></i>
+                                    </div>
+                                    <div class="ml-5 w-0 flex-1">
+                                        <dl>
+                                            <dt class="text-sm font-medium text-gray-500 truncate">Average Score</dt>
+                                            <dd class="text-3xl font-semibold text-gray-900">{{ average_score }}%</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Available Exams -->
+                <div class="mt-8 bg-white shadow overflow-hidden sm:rounded-lg">
+                    <div class="px-4 py-5 sm:px-6">
+                        <h2 class="text-lg leading-6 font-medium text-gray-900">Available Exams</h2>
+                    </div>
+                    <div class="border-t border-gray-200">
+                        <ul class="divide-y divide-gray-200">
+                            {% for exam in available_exams %}
+                            <li class="px-4 py-4 sm:px-6 hover:bg-gray-50">
+                                <div class="flex items-center justify-between">
+                                    <p class="text-sm font-medium text-indigo-600 truncate">{{ exam.course_name }}</p>
+                                    <a href="{% url 'take-exam' exam.id %}" class="ml-2 px-3 py-1 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out">
+                                        Take Exam
+                                    </a>
+                                </div>
+                            </li>
+                            {% empty %}
+                            <li class="px-4 py-4 sm:px-6">
+                                <p class="text-sm text-gray-500">No exams currently available.</p>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Recent Exam Attempts -->
+                <div class="mt-8 bg-white shadow overflow-hidden sm:rounded-lg">
+                    <div class="px-4 py-5 sm:px-6">
+                        <h2 class="text-lg leading-6 font-medium text-gray-900">Recent Exam Attempts</h2>
+                    </div>
+                    <div class="border-t border-gray-200">
+                        <ul class="divide-y divide-gray-200">
+                            {% for attempt in recent_attempts %}
+                            <li class="px-4 py-4 sm:px-6">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-900">{{ attempt.exam.course_name }}</p>
+                                        <p class="text-sm text-gray-500">Score: {{ attempt.marks }} | Date: {{ attempt.date|date:"F d, Y" }}</p>
+                                    </div>
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                        Completed
+                                    </span>
+                                </div>
+                            </li>
+                            {% empty %}
+                            <li class="px-4 py-4 sm:px-6">
+                                <p class="text-sm text-gray-500">No exam attempts yet.</p>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
-  </div>
 
+    <script>
+        // Mobile menu toggle
+        document.querySelector('button[aria-controls="mobile-menu"]').addEventListener('click', function () {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
 
-<br><br><br><br><br><br><br><br><br><br>
-
-<script src="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-
-
-{% endblock content %}
+</html>

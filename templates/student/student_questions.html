@@ -1,0 +1,12 @@
+{% extends 'student/studentbase.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4">
+    <h1 class="text-2xl font-semibold text-gray-900">Questions</h1>
+    <ul>
+        {% for question in questions %}
+        <li>{{ question.text }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

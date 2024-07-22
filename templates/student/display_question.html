@@ -1,0 +1,205 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ course.course_name }} - Question {{ question_num }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hint-button {
+            transition: all 0.3s ease;
+        }
+        .hint-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <header class="bg-blue-600 text-white py-4">
+        <div class="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center">
+            <h1 class="text-2xl font-bold mb-2 sm:mb-0">{{ course.course_name }}</h1>
+            <div id="timer" class="text-2xl font-bold">05:00</div>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-2 sm:px-4 py-4 sm:py-8">
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+            <div class="bg-gray-100 px-4 sm:px-6 py-4 border-b border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-800">Question {{ question_num }} of {{ total_questions }}</h2>
+            </div>
+            <div class="p-4 sm:p-6">
+                <form method="post" id="questionForm">
+                    {% csrf_token %}
+                    <div class="mb-6">
+                        <p class="text-lg text-gray-700">{{ question.question }}</p>
+                    </div>
+                    
+                    <div class="space-y-4 mb-6">
+                        {% for option in question.get_options %}
+                        <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
+                            <input type="radio" name="answer" value="Option{{ forloop.counter }}" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300" required>
+                            <span class="ml-3 text-gray-700">{{ option }}</span>
+                        </label>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="flex flex-wrap justify-center sm:justify-start space-x-0 sm:space-x-4 space-y-2 sm:space-y-0 mb-6">
+                        <button type="button" class="w-full sm:w-auto hint-button px-4 py-2 bg-yellow-400 text-yellow-800 rounded-full hover:bg-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2" onclick="showHint(1)">Hint 1</button>
+                        <button type="button" class="w-full sm:w-auto hint-button px-4 py-2 bg-yellow-400 text-yellow-800 rounded-full hover:bg-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2" onclick="showHint(2)">Hint 2</button>
+                    </div>
+                    
+                    <div id="hint1" class="hidden bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4 rounded-r-lg">
+                        <p>{{ question.hint1 }}</p>
+                    </div>
+                    <div id="hint2" class="hidden bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4 rounded-r-lg">
+                        <p>{{ question.hint2 }}</p>
+                    </div>
+                    
+                    <input type="hidden" name="hint1_used" id="hint1_used" value="false">
+                    <input type="hidden" name="hint2_used" id="hint2_used" value="false">
+                    
+                    <div class="flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
+                        {% if question_num > 1 %}
+                        <a href="{% url 'display_question' course.id question_num|add:'-1' %}" class="w-full sm:w-auto px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors text-center">Previous</a>
+                        {% else %}
+                        <div></div>
+                        {% endif %}
+                        
+                        <button type="submit" class="w-full sm:w-auto px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
+                            {% if question_num == total_questions %}Finish Exam{% else %}Next Question{% endif %}
+                        </button>
+                    </div>
+                </form>
+                
+                {% if question.solution_video_url %}
+                <div class="mt-6 text-center">
+                    <button id="showSolutionBtn" class="w-full sm:w-auto px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors">
+                        Show Solution Video
+                    </button>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+
+    <!-- Video Solution Modal -->
+    <div id="solutionModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+        <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-4/5 lg:w-3/4 shadow-lg rounded-md bg-white">
+            <div class="mt-3 text-center">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">Solution Video</h3>
+                <div class="mt-2 px-2 py-3">
+                    <div class="relative" style="padding-top: 56.25%;">
+                        <div id="vimeoPlayerContainer" class="absolute top-0 left-0 w-full h-full"></div>
+                    </div>
+                </div>
+                <div class="items-center px-4 py-3">
+                    <button id="closeSolutionBtn" class="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Timer functionality
+    function startTimer(duration, display) {
+        var timer = duration, minutes, seconds;
+        var interval = setInterval(function () {
+            minutes = parseInt(timer / 60, 10);
+            seconds = parseInt(timer % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            display.textContent = minutes + ":" + seconds;
+
+            if (--timer < 0) {
+                clearInterval(interval);
+                document.getElementById('questionForm').submit();
+            }
+        }, 1000);
+    }
+
+    window.onload = function () {
+        var fiveMinutes = 60 * 5,
+            display = document.querySelector('#timer');
+        startTimer(fiveMinutes, display);
+    };
+
+    // Hint functionality
+    function showHint(hintNumber) {
+        var hintElement = document.getElementById('hint' + hintNumber);
+        var hintUsedInput = document.getElementById('hint' + hintNumber + '_used');
+        
+        if (hintElement.classList.contains('hidden')) {
+            hintElement.classList.remove('hidden');
+            hintUsedInput.value = 'true';
+        } else {
+            hintElement.classList.add('hidden');
+        }
+    }
+
+    // Form validation
+    document.getElementById('questionForm').addEventListener('submit', function(e) {
+        var options = document.getElementsByName('answer');
+        var selected = Array.from(options).some(option => option.checked);
+        
+        if (!selected) {
+            e.preventDefault();
+            alert('Please select an answer before proceeding.');
+        }
+    });
+
+    // Solution video functionality
+    var solutionBtn = document.getElementById('showSolutionBtn');
+    var solutionModal = document.getElementById('solutionModal');
+    var closeSolutionBtn = document.getElementById('closeSolutionBtn');
+    var vimeoPlayerContainer = document.getElementById('vimeoPlayerContainer');
+    var player;
+
+    if (solutionBtn) {
+        solutionBtn.onclick = function() {
+            solutionModal.classList.remove('hidden');
+            var videoUrl = "{{ question.solution_video_url }}";
+            
+            // Extract the video ID from the URL
+            var videoId = videoUrl.split('/').pop();
+            
+            // Create a new Vimeo player
+            player = new Vimeo.Player(vimeoPlayerContainer, {
+                id: videoId,
+                responsive: true
+            });
+            
+            player.play().catch(function(error) {
+                console.error('Error playing the video:', error);
+            });
+        }
+    }
+
+    closeSolutionBtn.onclick = function() {
+        solutionModal.classList.add('hidden');
+        if (player) {
+            player.unload();
+        }
+    }
+
+    window.onclick = function(event) {
+        if (event.target == solutionModal) {
+            solutionModal.classList.add('hidden');
+            if (player) {
+                player.unload();
+            }
+        }
+    }
+    </script>
+</body>
+</html>

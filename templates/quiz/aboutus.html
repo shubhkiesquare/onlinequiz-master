@@ -1,47 +1,55 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="en" dir="ltr">
-
+<html lang="en" class="h-full bg-gray-50">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <style media="screen">
-    .jumbotron {
-      margin-top: 0px;
-      margin-bottom: 0px;
-    }
-
-    .jumbotron h1 {
-      text-align: center;
-    }
-
-    .alert {
-      margin: 0px;
-    }
-  </style>
-
-  <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - DHAI AKSHAR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
 </head>
+<body class="h-full">
+    <div class="min-h-full">
+        <!-- Navbar -->
+        {% include "quiz/navbar.html" %}
 
-<body>
+        <!-- Main Content -->
+        <div class="py-10">
+            <header>
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h1 class="text-3xl font-bold leading-tight text-gray-900 text-center">About Us</h1>
+                </div>
+            </header>
+            <main>
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div class="px-4 py-8 sm:px-0">
+                        <div class="bg-white overflow-hidden shadow rounded-lg">
+                            <div class="px-4 py-5 sm:p-6">
+                                <h2 class="text-2xl font-semibold text-gray-900 mb-4">Welcome to DHAI AKSHAR</h2>
+                                <p class="text-gray-600 mb-4">
+                                    We provide a platform for students to practice questions and enhance their learning experience. 
+                                    Teachers can add courses/exams to the system and create questions for each course.
+                                </p>
+                                <hr class="my-6 border-gray-200">
+                                <p class="text-gray-600 mb-6">Explore our website to discover more about our services and how we can help you in your educational journey.</p>
+                                <a href="/" class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    Go to Home
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
 
-  {% include "quiz/navbar.html" %}
-  <br><br>
-  <center>
-    <h3 class='alert alert-success' style="margin-bottom:0px;">About Us !</h3>
-  </center>
-  <div class="jumbotron" style="margin-bottom: 0px;margin-top: 0px;">
-    
-    <p class="lead">We Provide Platform For Students To practice Questions  <br> Teacher can add course/exam to System and Questions to that course.</p>
-    <hr class="my-4">
-    <p>Explore our Website.</p>
-    <p class="lead">
-      <a class="btn btn-primary btn-lg" href="/" role="button">HOME</a>
-    </p>
-  </div>
-
-  {% include "quiz/footer.html" %}
+        <!-- Footer -->
+        {% include "quiz/footer.html" %}
+    </div>
 </body>
-
 </html>

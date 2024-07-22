@@ -1,41 +1,40 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="en" dir="ltr">
-
+<html lang="en" class="h-full">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <style media="screen">
-    .jumbotron {
-      margin-top: 0px;
-      margin-bottom: 0px;
-    }
-
-    .jumbotron h1 {
-      text-align: center;
-    }
-
-  </style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome, Teacher - DHAI AKSHAR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
 </head>
+<body class="h-full bg-gray-50">
+    {% include "quiz/navbar.html" %}
 
-<body>
+    <div class="flex mb-[100px] flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <div class="sm:mx-auto sm:w-full sm:max-w-md">
+            <h2 class="mt-12 text-center text-4xl font-extrabold text-gray-900">Hello, Teacher</h2>
+            <p class="mt-2 text-center text-xl text-gray-600">Welcome to Online Quiz</p>
+        </div>
 
-  {% include "quiz/navbar.html" %}
-  <br><br>
-  <div class="jumbotron" style="margin-bottom:0px;">
-    <h1 class="display-4">Hello, Teacher</h1>
-    <p class="lead">Welcome to Online Quiz</p>
-    <hr class="my-4">
-    <p>You can access various features after Login.</p>
-    <p class="lead">
-      <a class="btn btn-primary btn-lg" href="teachersignup" role="button">Create Your Account</a>
-      <a class="btn btn-primary btn-lg" href="teacherlogin" role="button">Login</a>
-    </p>
-    <br><br><br><br>
-  </div>
-  {% include "quiz/footer.html" %}
+        <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+            <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+                <p class="text-center text-gray-700 mb-6">You can access various features after Login.</p>
+                <div class="flex flex-col space-y-4">
+                    <a href="teachersignup" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Create Your Account
+                    </a>
+                    <a href="teacherlogin" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                        Login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
-
 </html>

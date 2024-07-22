@@ -1,57 +1,60 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="en" dir="ltr">
+<html lang="en" class="h-full bg-gray-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let's Quiz - Test Your Skills</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="h-full">
+    {% include "quiz/navbar.html" %}
 
-<style>
-  .jumbotron {
-    margin-bottom: 0px;
-  }
-
-  .instructor-details {
-    margin-top: 20px;
-  }
-
-  .instructor-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-right: 20px;
-  }
-
-  .instructor-name {
-    font-size: 24px;
-    font-weight: bold;
-  }
-
-  .instructor-position {
-    font-size: 18px;
-    color: #666;
-  }
-</style>
-
-<body>
-  {% include "quiz/navbar.html" %}
-  <br>
-  <section id="section-jumbotron" class="jumbotron jumbotron-fluid d-flex justify-content-center align-items-center">
-    <div class="container text-center">
-      <h1 class="display-1 text-info">Let's Quiz</h1>
-      <p class="display-4 d-none d-sm-block">Test your skills and become a master.</p>
-      <p class="lead">We organize quizzes on various topics.</p>
-      <div class="instructor-details">
-        <img src="{% static 'instructor.jpeg' %}" alt="Instructor Image" class="instructor-image">
-        <div class="instructor-info">
-          <span class="instructor-name">Rananjay Pratap</span><br>
-          <span class="instructor-position">IIT / IIM </span>
+    <main class="flex flex-col justify-center py-12 px-6 sm:px-6 lg:px-8">
+        <div class="w-full max-w-md mx-auto">
+            <!-- Logo and Title -->
+            <div class="flex items-center justify-center space-x-4">
+                <img class="h-12 w-auto sm:h-16" src="{% static 'quiz_logo.png' %}" alt="Let's Quiz Logo">
+                <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900">Let's Quiz</h1>
+            </div>
+            <p class="mt-4 text-center text-xl sm:text-lg text-gray-600">Test your skills and become a master.</p>
         </div>
-      </div>
-      <p class="lead">Sign up if you haven't already and get access to millions of quizzes on the topic of your interest.</p>
-      <p><strong> Start Your Journey Here:</strong></p>
-      <a href="/student/studentsignup" class="btn btn-lg btn-info" style="padding-right: 35px;"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</a>
 
-      <br><br><br>
-    </div>
-  </section>
-  {% include "quiz/footer.html" %}
+        <div class="mt-8 w-full max-w-md mx-auto">
+            <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+                <div class="space-y-6">
+                    <div>
+                        <img class="mx-auto h-24 w-24 rounded-full" src="{% static 'instructor.jpeg' %}" alt="Instructor">
+                        <div class="mt-4 text-center">
+                            <h3 class="text-xl font-medium leading-6 text-gray-900">Rananjay Pratap</h3>
+                            <p class="text-base text-gray-500">IIT / IIM</p>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <p class="text-base text-gray-500">We organize quizzes on various topics.</p>
+                    </div>
+
+                    <div>
+                        <a href="/student/studentsignup" class="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                            Sign Up
+                        </a>
+                    </div>
+
+                    <div class="text-center">
+                        <p class="text-sm text-gray-500">Sign up if you haven't already and get access to millions of quizzes on the topic of your interest.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    {% include "quiz/footer.html" %}
 </body>
-
 </html>

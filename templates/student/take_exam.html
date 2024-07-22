@@ -1,58 +1,63 @@
 {% extends 'student/studentbase.html' %}
+
+{% block title %}Exam Rules - {{ course.course_name }}{% endblock %}
+
 {% block content %}
-{%load static%}
-
-<head>
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
-
-</head>
-<br><br>
-<div class="container my-4">
-    <div class="jumbotron">
-
-	      <h3 class="text-info text-center">Before you start the Exam, here are the rules</h3>
-
-        <div class="row">
-
-            <div class="card border-info mx-4 my-4">
-                <div class="card-body text-info">
-
-                    <h4 class="card-title">Exam Details :</h4>
-                    <p class="card-text">
-                        </p><ul style="list-style:decimal;">
-                            <li>Exam Name : {{course.course_name}}</li>
-                            <li>Total Question : {{total_questions}}</li>
-                            <li>Total Marks : {{total_marks}}</li>
-                        </ul>
-                    <p></p>
-
-
-
-                    <h4 class="card-title">Rules :</h4>
-                    <p class="card-text">
-                        </p><ul style="list-style:decimal;">
-                            <li>All questions are multiple choice question.</li>
-                            <li><span class="text-danger">Only one choice is correct.</span></li>
-                            <li>Every question carry different marks 
-                            </li>
-                
-                            <li>Try to answer as quickly as you can.</li>
-                            <li>If you press refresh or go back to the previous page, there will be a new question for you and the question you were on will be counted as attempted.</li>
-                            <li>Questions are displayed randomly for every user.</li>
-                            <li>You will be told your marks immediately when you submit the answer.</li>
-                        </ul>
-                    <p></p>
-                    <a href="{% url 'start-exam' course.id  %}" class="btn btn-info">Let's Start</a>
-                </div>  
-                <div class="card-footer">Best Of Luck</div>  
-            </div>  
-        </div>  
-
+<div class="bg-white shadow-md rounded-lg overflow-hidden max-w-4xl mx-auto">
+    <div class="px-6 py-4 bg-primary text-white">
+        <h2 class="text-2xl font-bold text-center">Before You Start the Exam</h2>
+    </div>
+    <div class="p-6">
+        <div class="mb-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Exam Details:</h3>
+            <ul class="list-disc list-inside space-y-2 text-gray-600">
+                <li class="text-base">Exam Name: <span class="font-medium">{{ course.course_name }}</span></li>
+                <li class="text-base">Total Questions: <span class="font-medium">{{ total_questions }}</span></li>
+                <li class="text-base">Total Marks: <span class="font-medium">{{ total_marks }}</span></li>
+            </ul>
+        </div>
+        
+        <div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Rules:</h3>
+            <ol class="list-decimal list-inside space-y-2 text-gray-600">
+                <li class="text-base">All questions are multiple choice questions.</li>
+                <li class="text-base text-red-600 font-medium">Only one choice is correct.</li>
+                <li class="text-base">Every question carries different marks.</li>
+                <li class="text-base">Try to answer as quickly as you can.</li>
+                <li class="text-base">If you press refresh or go back to the previous page, there will be a new question for you and the question you were on will be counted as attempted.</li>
+                <li class="text-base">Questions are displayed randomly for every user.</li>
+                <li class="text-base">You will be told your marks immediately when you submit the answer.</li>
+            </ol>
+        </div>
+    </div>
+    <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
+        <div class="flex items-center justify-between">
+            <p class="text-gray-600 italic text-base">Best of Luck!</p>
+            <a href="{% url 'display_question' course.id 1 %}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition duration-150 ease-in-out">
+                Let's Start
+                <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
     </div>
 </div>
-
-<br><br><br><br><br><br>
 {% endblock content %}
+
+{% block extra_css %}
+<style>
+    /* Ensure text visibility */
+    .text-base {
+        font-size: 1rem !important;
+        line-height: 1.5rem !important;
+        color: #374151 !important;
+    }
+    .text-xl {
+        font-size: 1.25rem !important;
+        line-height: 1.75rem !important;
+        color: #1F2937 !important;
+    }
+    .text-2xl {
+        font-size: 1.5rem !important;
+        line-height: 2rem !important;
+    }
+</style>
+{% endblock %}

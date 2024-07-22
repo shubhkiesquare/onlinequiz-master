@@ -1,6 +1,8 @@
 from django.urls import path,include
 from django.contrib import admin
 from quiz import views
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib.auth.views import LogoutView,LoginView
 urlpatterns = [
    
@@ -51,3 +53,6 @@ urlpatterns = [
     path('upload', views.upload_questions, name='upload_questions')
 
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

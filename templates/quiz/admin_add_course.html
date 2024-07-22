@@ -1,38 +1,117 @@
-{% extends 'quiz/adminbase.html' %}
+<!DOCTYPE html>
+{% load static %}
 {% load widget_tweaks %}
-{% block content %}
+<html lang="en" class="h-full bg-gray-100">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <style>
-       <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  a:link {
-        text-decoration: none;
-      }
-    
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Course - DHAI AKSHAR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
 </head>
-<h2 style="text-align:center; color:blue;">ADD COURSE</h2>
-<form method="POST" autocomplete="off" style="margin:100px;margin-top: 0px;">
-    {%csrf_token%}
-    <div class="form-group">
-      <label for="course_name">Course Name</label>
-      {% render_field courseForm.course_name class="form-control" placeholder="Java" %}
+<body class="h-full">
+    <div class="min-h-full">
+        <!-- Navbar -->
+        <nav class="bg-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <span class="text-white text-lg font-semibold">DHAI AKSHAR</span>
+                        </div>
+                        <div class="hidden md:block">
+                            <div class="ml-10 flex items-baseline space-x-4">
+                                <a href="/admin-dashboard" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
+                                <a href="/admin-teacher" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Teacher</a>
+                                <a href="/admin-student" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Student</a>
+                                <a href="/admin-course" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Courses</a>
+                                <a href="/admin-question" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Questions</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-4 flex items-center md:ml-6">
+                            <a href="/logout" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Logout</a>
+                        </div>
+                    </div>
+                    <div class="-mr-2 flex md:hidden">
+                        <button type="button" class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" aria-controls="mobile-menu" aria-expanded="false" onclick="toggleMobileMenu()">
+                            <span class="sr-only">Open main menu</span>
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-      <label for="question_number">Total Question</label>
-      {% render_field courseForm.question_number class="form-control" placeholder="10" %}
+            <!-- Mobile menu, show/hide based on menu state. -->
+            <div class="md:hidden hidden" id="mobile-menu">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <a href="/admin-dashboard" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Dashboard</a>
+                    <a href="/admin-teacher" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Teacher</a>
+                    <a href="/admin-student" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Student</a>
+                    <a href="/admin-course" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">Courses</a>
+                    <a href="/admin-question" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Questions</a>
+                    <a href="/logout" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Logout</a>
+                </div>
+            </div>
+        </nav>
 
-      <label for="total_marks">Total Marks</label>
-      {% render_field courseForm.total_marks class="form-control" placeholder="50" %}
+        <!-- Main Content -->
+        <div class="flex-1 justify-center mx-auto py-6 sm:px-6 lg:px-8">
+            <main class="flex-1">
+                <div class="py-6">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+                        <h1 class="text-2xl font-semibold text-gray-900">Add Course</h1>
+                    </div>
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+                        <div class="mt-8">
+                            <div class="bg-white shadow-md rounded-lg p-6">
+                                <form method="POST" autocomplete="off">
+                                    {% csrf_token %}
+                                    <div class="space-y-6">
+                                        <div>
+                                            <label for="course_name" class="block text-sm font-medium text-gray-700">Course Name</label>
+                                            <div class="mt-1">
+                                                {% render_field courseForm.course_name class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Java" %}
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label for="question_number" class="block text-sm font-medium text-gray-700">Total Questions</label>
+                                            <div class="mt-1">
+                                                {% render_field courseForm.question_number class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="10" %}
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label for="total_marks" class="block text-sm font-medium text-gray-700">Total Marks</label>
+                                            <div class="mt-1">
+                                                {% render_field courseForm.total_marks class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="50" %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-6">
+                                        <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                            Add Course
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
     </div>
-    
-
-    <button type="submit" class="btn btn-primary">ADD</button>
-  </form>
-<br><br><br>
-{% endblock content %}
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>

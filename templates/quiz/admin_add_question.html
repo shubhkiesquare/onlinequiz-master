@@ -1,57 +1,168 @@
-{% extends 'quiz/adminbase.html' %}
+<!DOCTYPE html>
 {% load widget_tweaks %}
-{% block content %}
+<html lang="en" class="h-full bg-gray-100">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <style>
-       <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  a:link {
-        text-decoration: none;
-      }
-    
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Question - DHAI AKSHAR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
 </head>
-<h2 style="text-align:center; color:blue;">ADD QUESTION</h2>
-<div class="text-center">
-  <button type="button" class="btn btn-success"><a href="upload">Upload Questions via Excel</a></button>
-</div>
-<form method="POST" autocomplete="off" style="margin:100px;margin-top: 0px;">
-    {%csrf_token%}
-    <div class="form-group">
-        <label for="question">Course</label>
-      {% render_field questionForm.courseID|attr:'required:true' class="form-control"  %}
-        <br>
+<body class="h-full">
+    <div class="min-h-full">
+        <!-- Navbar -->
+        <nav class="bg-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <span class="text-white text-lg font-semibold">DHAI AKSHAR</span>
+                        </div>
+                        <div class="hidden md:block">
+                            <div class="ml-10 flex items-baseline space-x-4">
+                                <a href="/admin-dashboard" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
+                                <a href="/admin-teacher" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Teacher</a>
+                                <a href="/admin-student" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Student</a>
+                                <a href="/admin-course" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Courses</a>
+                                <a href="/admin-question" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Questions</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-4 flex items-center md:ml-6">
+                            <a href="/logout" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Logout</a>
+                        </div>
+                    </div>
+                    <div class="-mr-2 flex md:hidden">
+                        <button type="button" class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" aria-controls="mobile-menu" aria-expanded="false" onclick="toggleMobileMenu()">
+                            <span class="sr-only">Open main menu</span>
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-      <label for="question">Question</label>
-      {% render_field questionForm.question|attr:'required:true' class="form-control" placeholder="What is the currency of India ?" %}
-        <br>
-      <label for="question_number">Marks</label>
-      {% render_field questionForm.marks|attr:'required:true' class="form-control" placeholder="10" %}
-        <br>
-      <label for="option1">Option 1</label>
-      {% render_field questionForm.option1|attr:'required:true' class="form-control" placeholder="Rupees" %}
-        <br>
-      <label for="option2">Option 2</label>
-      {% render_field questionForm.option2|attr:'required:true' class="form-control" placeholder="Dollar" %}
-        <br>
-      <label for="option3">Option 3</label>
-      {% render_field questionForm.option3|attr:'required:true' class="form-control" placeholder="Taka" %}
-        <br>
-      <label for="option4">Option 4</label>
-      {% render_field questionForm.option4|attr:'required:true' class="form-control" placeholder="Euro" %}
-        <br>
-      <label for="answer">Answer</label>
-      {% render_field questionForm.answer|attr:'required:true' class="form-control" %}
+            <!-- Mobile menu, show/hide based on menu state. -->
+            <div class="md:hidden hidden" id="mobile-menu">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <a href="/admin-dashboard" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Dashboard</a>
+                    <a href="/admin-teacher" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Teacher</a>
+                    <a href="/admin-student" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Student</a>
+                    <a href="/admin-course" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Courses</a>
+                    <a href="/admin-question" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">Questions</a>
+                    <a href="/logout" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Logout</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="flex-1 justify-center mx-auto py-6 sm:px-6 lg:px-8">
+            <main class="flex-1">
+                <div class="py-6">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+                        <h1 class="text-2xl font-semibold text-gray-900 text-center">Add Question</h1>
+                    </div>
+                    <div class="max-w-5xl mx-auto px-4 sm:px-6 md:px-8">
+                        <div class="mt-4">
+                            <div class="text-center mb-6">
+                                <a href="{% url 'upload_questions' %}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+                                    Upload Questions via Excel
+                                </a>
+                            </div>
+                            <form method="POST" autocomplete="off" class="bg-white rounded-lg px-8 pt-8 pb-8 mb-4 mt-8">
+                                {% csrf_token %}
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="course">
+                                        Course
+                                    </label>
+                                    {% render_field questionForm.courseID|attr:'required:true' class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %}
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="question">
+                                        Question
+                                    </label>
+                                    {% render_field questionForm.question|attr:'required:true' class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder='What is the currency of India ?' %}
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="marks">
+                                        Marks
+                                    </label>
+                                    {% render_field questionForm.marks|attr:'required:true' class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder='10' %}
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="option1">
+                                        Option 1
+                                    </label>
+                                    {% render_field questionForm.option1|attr:'required:true' class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder='Rupees' %}
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="option2">
+                                        Option 2
+                                    </label>
+                                    {% render_field questionForm.option2|attr:'required:true' class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder='Dollar' %}
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="option3">
+                                        Option 3
+                                    </label>
+                                    {% render_field questionForm.option3|attr:'required:true' class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder='Taka' %}
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="option4">
+                                        Option 4
+                                    </label>
+                                    {% render_field questionForm.option4|attr:'required:true' class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder='Euro' %}
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="answer">
+                                        Answer
+                                    </label>
+                                    {% render_field questionForm.answer|attr:'required:true' class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %}
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="hint1">
+                                        Hint 1
+                                    </label>
+                                    {% render_field questionForm.hint1 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder='First hint for the question' %}
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="hint2">
+                                        Hint 2
+                                    </label>
+                                    {% render_field questionForm.hint2 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder='Second hint for the question' %}
+                                </div>
+                                <div class="mb-6">
+                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="solution_video_url">
+                                        Solution Video URL
+                                    </label>
+                                    {% render_field questionForm.solution_video_url class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder='https://player.vimeo.com/video/VIDEO_ID' %}
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                                        Add Question
+                                    </button>
+                                </div>
+                            </form>
+                            
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
     </div>
-    
 
-    <button type="submit" class="btn btn-primary">ADD</button>
-  </form>
-<br><br><br>
-{% endblock content %}
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        }
+    </script>
+
+</body>
+</html>

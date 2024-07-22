@@ -13,10 +13,12 @@ from student import models as SMODEL
 from teacher import forms as TFORM
 from student import forms as SFORM
 from django.contrib.auth.models import User
-from .forms import UploadQuestionForm  # Make sure to import the correct form
+from .forms import UploadQuestionForm,QuestionForm  # Make sure to import the correct form
 from .utils import parse_excel_and_extract_questions
+from django.contrib.auth.views import LoginView 
+from .models import Question,Course
+from django.contrib import messages
 
-from .models import Question
 
 
 
@@ -227,18 +229,17 @@ def admin_question_view(request):
 
 @login_required(login_url='adminlogin')
 def admin_add_question_view(request):
-    questionForm=forms.QuestionForm()
-    if request.method=='POST':
-        questionForm=forms.QuestionForm(request.POST)
+    questionForm = QuestionForm()
+    if request.method == 'POST':
+        questionForm = QuestionForm(request.POST)
         if questionForm.is_valid():
-            question=questionForm.save(commit=False)
-            course=models.Course.objects.get(id=request.POST.get('courseID'))
-            question.course=course
-            question.save()       
-        else:
-            print("form is invalid")
-        return HttpResponseRedirect('/admin-view-question')
-    return render(request,'quiz/admin_add_question.html',{'questionForm':questionForm})
+            question = questionForm.save(commit=False)
+            course = Course.objects.get(id=request.POST.get('courseID'))
+            question.course = course
+            question.save()
+            messages.success(request, 'Question added successfully.')
+            return HttpResponseRedirect('/admin-question')
+    return render(request, 'quiz/admin_add_question.html', {'questionForm': questionForm})
 
 
 @login_required(login_url='adminlogin')

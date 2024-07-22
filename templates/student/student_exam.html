@@ -1,52 +1,80 @@
 {% extends 'student/studentbase.html' %}
+
+{% block title %}Available Exams - DHAI AKSHAR{% endblock %}
+
 {% block content %}
-{%load static%}
-
-<head>
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
-  <style media="screen">
-    a:link {
-      text-decoration: none;
-    }
-
-    h6 {
-      text-align: center;
-    }
-
-    .row {
-      margin: 100px;
-    }
-  </style>
-</head>
-<br><br>
-<div class="container">
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h6 class="panel-title">Courses</h6>
+<div class="bg-white shadow-md rounded-lg overflow-hidden max-w-4xl mx-auto">
+    <div class="px-6 py-4 bg-primary text-white">
+        <h2 class="text-2xl font-bold text-center">Available Exams</h2>
     </div>
-    <table class="table table-hover" id="dev-table">
-      <thead>
-        <tr>
-
-          <th>Exam Name</th>
-          
-          <th>Take Exam</th>
-        </tr>
-      </thead>
-      {% for t in courses %}
-      <tr>
-
-        <td> {{t.course_name}}</td>
-        
-        <td><a class="btn btn-danger btn-xs" href="{% url 'take-exam' t.id  %}"><span class="glyphicon glyphicon-circle-arrow-right"></span></a></td>
-      </tr>
-      {% endfor %}
-    </table>
-  </div>
+    <div class="p-6">
+        {% if courses %}
+            <ul class="divide-y divide-gray-200">
+                {% for course in courses %}
+                <li class="py-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <span class="h-12 w-12 rounded-full bg-primary flex items-center justify-center">
+                                    <i class="fas fa-book text-white text-lg"></i>
+                                </span>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-gray-900">{{ course.course_name }}</h3>
+                                <p class="text-sm text-gray-500">Course Code: {{ course.id }}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <a href="{% url 'take-exam' course.id %}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition duration-150 ease-in-out">
+                                Take Exam
+                                <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-center text-gray-500 py-4">No exams are currently available.</p>
+        {% endif %}
+    </div>
 </div>
+{% endblock %}
 
-<br><br><br><br><br><br>
-{% endblock content %}
+{% block extra_css %}
+<style>
+    /* Ensure text visibility */
+    .text-sm {
+        font-size: 0.875rem !important;
+        line-height: 1.25rem !important;
+        color: #6B7280 !important;
+    }
+    .text-base {
+        font-size: 1rem !important;
+        line-height: 1.5rem !important;
+        color: #374151 !important;
+    }
+    .text-lg {
+        font-size: 1.125rem !important;
+        line-height: 1.75rem !important;
+        color: #111827 !important;
+    }
+    .text-2xl {
+        font-size: 1.5rem !important;
+        line-height: 2rem !important;
+        color: #FFFFFF !important;
+    }
+    .bg-primary {
+        background-color: #3B82F6 !important;
+    }
+    .text-white {
+        color: #FFFFFF !important;
+    }
+    .text-gray-500 {
+        color: #6B7280 !important;
+    }
+    .text-gray-900 {
+        color: #111827 !important;
+    }
+</style>
+{% endblock %}
